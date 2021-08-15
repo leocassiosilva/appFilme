@@ -1,15 +1,43 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, Text, View , FlatList} from 'react-native';
+import api from './src/services/api';
+import Filmes from './src/components/Filmes';
+class App extends Component{
+  
+  constructor(props){
+    super(props); 
+    this.state = {
+      filmes: []
+    }; 
+  }
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+
+  async componentDidMount(){
+    const response = await api.get('r-api/?api=filmes');
+    this.setState({
+      filmes: response.data
+    })
+    console.log(response.data)
+  }
+
+
+  render(){
+    return (
+      <View style={styles.container}>
+        <View style={styles.filmes}>
+            <FlatList
+              data={this.state.filmes}
+              keyExtractor={item => item.id.toString()}
+              renderItem={({item}) => <Filmes data={item}/>}
+            />
+          </View>
+      </View>
+    );
+  }
 }
+
+export default App; 
 
 const styles = StyleSheet.create({
   container: {
@@ -18,4 +46,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  filmes:{
+    margin:40,
+  }
 });
