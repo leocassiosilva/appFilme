@@ -25,13 +25,11 @@ class App extends Component{
   render(){
     return (
       <View style={styles.container}>
-        <View style={styles.filmes}>
-            <FlatList
-              data={this.state.filmes}
-              keyExtractor={item => item.id.toString()}
-              renderItem={({item}) => <Filmes data={item}/>}
-            />
-          </View>
+          <FlatList
+            data={this.state.filmes}
+            keyExtractor={item => item.id.toString()}
+            renderItem={({item}) => <Filmes data={item}/>}
+          />
       </View>
     );
   }
@@ -40,13 +38,7 @@ class App extends Component{
 export default App; 
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  filmes:{
-    margin:40,
+  container:{
+    flex:1,
   }
 });
